@@ -1,3 +1,4 @@
+// Task manager API entry point
 const createApp = require('./app');
 
 const app = createApp();
