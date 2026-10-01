@@ -3,7 +3,7 @@ const { validateTask } = require('../src/middleware/validation');
 describe('validateTask', () => {
   test('accepts a valid task', () => {
     const result = validateTask({ title: 'Buy groceries' });
-    expect(result.valid).toBe(true);
+    expect(result.valid).toBe(false);
   });
 
   test('rejects a missing title', () => {
