@@ -39,7 +39,7 @@ jobs:
           END_TIME=$(date +%s)
           echo "DURATION_SECONDS=$((END_TIME - START_TIME))" >> $GITHUB_ENV
 
-      -       - name: Compute diff stats
+      - name: Compute diff stats
         if: github.event_name == 'push'
         run: |
           BEFORE="${{ github.event.before }}"
