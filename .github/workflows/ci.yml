@@ -39,11 +39,16 @@ jobs:
           END_TIME=$(date +%s)
           echo "DURATION_SECONDS=$((END_TIME - START_TIME))" >> $GITHUB_ENV
 
-      - name: Compute diff stats
+      -       - name: Compute diff stats
         if: github.event_name == 'push'
         run: |
-          STATS=$(git diff --shortstat HEAD~1 HEAD || echo "")
-          FILES=$(git diff --name-only HEAD~1 HEAD || echo "")
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE=$(git rev-list --max-parents=0 HEAD)
+          fi
+          STATS=$(git diff --shortstat "$BEFORE" "$AFTER" || echo "")
+          FILES=$(git diff --name-only "$BEFORE" "$AFTER" || echo "")
           ADDED=$(echo "$STATS" | grep -oP '\d+(?= insertion)' || echo 0)
           DELETED=$(echo "$STATS" | grep -oP '\d+(?= deletion)' || echo 0)
           echo "LINES_ADDED=$ADDED" >> $GITHUB_ENV
