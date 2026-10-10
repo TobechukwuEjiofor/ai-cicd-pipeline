@@ -81,7 +81,3 @@ npm install
 npm test
 npm start
 ```
-
-## What I would do next
-
-Wire a simple history-based risk score into the pipeline, collect more of my own build data first, and measure false alarms before calling it useful.
